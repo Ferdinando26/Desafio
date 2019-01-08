@@ -30,7 +30,7 @@ public class NotasService {
 	
 	@GET
 	@Path("/list")
-	@Produces(MediaType.APPLICATION_JSON + CHARSET_UTF8)
+	@Produces(MediaType.APPLICATION_JSON)
 	public List<Nota> listarNotas() {
 		List<Nota> lista = null;
 		try {
