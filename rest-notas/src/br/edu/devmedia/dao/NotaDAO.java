@@ -27,6 +27,7 @@ public class NotaDAO {
 			nota.setId(rs.getInt("ID_NOTE"));
 			nota.setTitulo(rs.getString("TITULO"));
 			nota.setDescricao(rs.getString("DESCRICAO"));
+			nota.setIdUsuario(rs.getInt("ID_USUARIO"));
 
 			lista.add(nota);
 		}
@@ -39,7 +40,7 @@ public class NotaDAO {
 
 		Connection conexao = BDConfig.getConnection();
 
-		String sql = "SELECT * FROM TB_NOTA WHERE ID_NOTE = ?";
+		String sql = "SELECT * FROM TB_NOTA WHERE ID_USUARIO = ?";
 
 		PreparedStatement statement = conexao.prepareStatement(sql);
 		statement.setInt(1, idNota);
@@ -50,6 +51,7 @@ public class NotaDAO {
 			nota.setId(rs.getInt("ID_NOTE"));
 			nota.setTitulo(rs.getString("TITULO"));
 			nota.setDescricao(rs.getString("DESCRICAO"));
+			nota.setIdUsuario(rs.getInt("ID_USUARIO"));
 		}
 
 		return nota;
@@ -59,11 +61,12 @@ public class NotaDAO {
 		int idGerado = 0;
 		Connection conexao = BDConfig.getConnection();
 
-		String sql = "INSERT INTO TB_NOTA(TITULO, DESCRICAO) VALUES(?, ?)";
+		String sql = "INSERT INTO TB_NOTA(TITULO, DESCRICAO, ID_USUARIO) VALUES(?, ?, ?)";
 
 		PreparedStatement statement = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		statement.setString(1, nota.getTitulo());
 		statement.setString(2, nota.getDescricao());
+		statement.setInt(3, nota.getIdUsuario());
 		statement.execute();
 		
 		ResultSet rs = statement.getGeneratedKeys();
