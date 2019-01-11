@@ -61,7 +61,7 @@ public class NotaDAO {
 		int idGerado = 0;
 		Connection conexao = BDConfig.getConnection();
 
-		String sql = "INSERT INTO TB_NOTA(TITULO, DESCRICAO, ID_USUARIO) VALUES(?, ?, ?)";
+		String sql = "INSERT INTO TB_NOTA(TITULO, DESCRICAO, ID_USUARIO) VALUES(?, ?, ? )";
 
 		PreparedStatement statement = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		statement.setString(1, nota.getTitulo());

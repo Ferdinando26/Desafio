@@ -61,7 +61,7 @@ public class UsuarioDAO {
 		PreparedStatement statement = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
 		statement.setString(1, usuario.getNome());
-		statement.executeQuery();
+		statement.executeUpdate();
 
 		ResultSet rs = statement.getGeneratedKeys();
 
@@ -81,7 +81,8 @@ public class UsuarioDAO {
 		PreparedStatement statement = conexao.prepareStatement(sql);
 		
 		statement.setString(1, usuario.getNome());
-		statement.execute();
+		statement.setInt(2, idUsuario);
+		statement.executeUpdate();
 		
 	}
 	public void removerUsuario (int idUsuario) throws Exception{
