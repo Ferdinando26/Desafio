@@ -10,19 +10,21 @@ import java.util.List;
 import br.edu.devmedia.config.BDConfig;
 import br.edu.devmedia.entidade.Nota;
 
+
 public class NotaDAO {
-	
+
 	public List<Nota> listarNotas() throws Exception {
 		List<Nota> lista = new ArrayList<>();
 
 		Connection conexao = BDConfig.getConnection();
 
-		String sql = "SELECT * FROM TB_NOTA";
+		String sql = "SELECT *FROM TB_NOTA";
 
 		PreparedStatement statement = conexao.prepareStatement(sql);
 		ResultSet rs = statement.executeQuery();
 
 		while (rs.next()) {
+
 			Nota nota = new Nota();
 			nota.setId(rs.getInt("ID_NOTE"));
 			nota.setTitulo(rs.getString("TITULO"));
@@ -30,11 +32,39 @@ public class NotaDAO {
 			nota.setIdUsuario(rs.getInt("ID_USUARIO"));
 
 			lista.add(nota);
+
 		}
 
 		return lista;
 	}
-	
+
+	public List<Nota> listarNotasUsuario() throws Exception {
+		List<Nota> lista = new ArrayList<>();
+		
+		Connection conexao = BDConfig.getConnection();
+		
+		String sql = "SELECT * FROM TB_NOTA JOIN USUARIO ON TB_NOTA.ID_USUARIO=USUARIO.ID_USUARIO";
+		
+		PreparedStatement statement = conexao.prepareStatement(sql);
+		ResultSet rs = statement.executeQuery();
+		
+		while (rs.next()) {
+			Nota nota = new Nota();
+			
+			nota.setId(rs.getInt("ID_NOTE"));
+			nota.setTitulo(rs.getString("TITULO"));
+			nota.setDescricao(rs.getString("DESCRICAO"));
+			nota.setIdUsuario(rs.getInt("ID_USUARIO"));
+			nota.setNomeUsuario(rs.getString("NOME_USUARIO"));
+			
+			lista.add(nota);
+			
+			
+		}
+		return lista;
+
+	}
+
 	public Nota buscarNotaPorId(int idNota) throws Exception {
 		Nota nota = null;
 
@@ -68,15 +98,15 @@ public class NotaDAO {
 		statement.setString(2, nota.getDescricao());
 		statement.setInt(3, nota.getIdUsuario());
 		statement.execute();
-		
+
 		ResultSet rs = statement.getGeneratedKeys();
 		if (rs.next()) {
 			idGerado = rs.getInt(1);
 		}
-		
+
 		return idGerado;
 	}
-	
+
 	public void editarNota(Nota nota, int idNota) throws Exception {
 		Connection conexao = BDConfig.getConnection();
 
@@ -88,7 +118,7 @@ public class NotaDAO {
 		statement.setInt(3, idNota);
 		statement.execute();
 	}
-	
+
 	public void removerNota(int idNota) throws Exception {
 		Connection conexao = BDConfig.getConnection();
 
@@ -98,5 +128,5 @@ public class NotaDAO {
 		statement.setInt(1, idNota);
 		statement.execute();
 	}
-	
+
 }

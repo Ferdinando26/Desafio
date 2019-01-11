@@ -40,6 +40,18 @@ public class NotasService {
 		}
 		return lista;
 	}
+	@GET
+	@Path ("/listAll")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Nota> listarNotasUsuario(){
+		List<Nota> lista = null;
+		try {
+			lista = notaDAO.listarNotasUsuario();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return lista;
+	}
 	
 	
 	@POST
@@ -117,5 +129,7 @@ public class NotasService {
 		
 		return msg;
 	}
+	
+	
 	
 }
