@@ -89,7 +89,7 @@ public class UsuarioService {
 
 		try {
 			usuarioDAO.editarUsuario(usuario, idUsuario);
-			msg = "Nome editado com sucesso!";
+			msg = "Nome editado com sucesso, parabéms!";
 
 		} catch (Exception e) {
 			msg = "Erro ao editar nome";
